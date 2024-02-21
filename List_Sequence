@@ -1,0 +1,36 @@
+-- Create a sequence for generating unique company IDs
+CREATE SEQUENCE company_id_seq START WITH 1 INCREMENT BY 1;
+
+-- Create a sequence for generating unique employee IDs
+CREATE SEQUENCE employee_id_seq START WITH 1 INCREMENT BY 1;
+
+-- Create a table to store company information
+CREATE TABLE CompanyInfo (
+    company_id INT PRIMARY KEY,
+    company_name VARCHAR2(100)
+);
+
+-- Create a table to store employee information
+CREATE TABLE Employee (
+    employee_id INT PRIMARY KEY,
+    company_id INT,
+    employee_count INT
+);
+
+-- Insert sample data into the CompanyInfo table
+INSERT INTO CompanyInfo (company_id, company_name) VALUES
+(company_id_seq.NEXTVAL, 'Company A'),
+(company_id_seq.NEXTVAL, 'Company B'),
+(company_id_seq.NEXTVAL, 'Company C');
+
+-- Insert sample data into the Employee table
+INSERT INTO Employee (employee_id, company_id, employee_count) VALUES
+(employee_id_seq.NEXTVAL, 1, 12000),
+(employee_id_seq.NEXTVAL, 2, 8000),
+(employee_id_seq.NEXTVAL, 3, 15000),
+(employee_id_seq.NEXTVAL, 1, 9000);
+
+-- Fetch company IDs with more than 10,000 employees
+SELECT DISTINCT company_id
+FROM Employee
+WHERE employee_count > 10000;
